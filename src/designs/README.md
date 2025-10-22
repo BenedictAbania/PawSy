@@ -31,7 +31,7 @@ Responsible for designing the visual and user experience elements of the PetCent
 
 ### 🧩 Figma Design Link
 
-[View Full Figma Design →](https://www.figma.com/design/BY5XRKeYjLmVkWBghnDM2N/E-commerce?node-id=0-1&t=NCle1xqyaBxKlZOZ-1)
+[View Full Figma Design here](https://www.figma.com/design/BY5XRKeYjLmVkWBghnDM2N/E-commerce?node-id=0-1&t=NCle1xqyaBxKlZOZ-1)
 
 ---
 
