@@ -1,0 +1,118 @@
+.landing-page {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+/* --- HERO --- */
+.hero-section {
+  padding: 100px 0;
+  background: #fff7f0;
+}
+.hero-section .brand-name {
+  color: #f87537;
+  font-weight: 600;
+}
+.hero-section h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.hero-section p {
+  color: #666;
+  max-width: 500px;
+}
+.shop-btn {
+  background-color: #fd7e14;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 25px;
+}
+
+/* --- CATEGORY --- */
+.category-section {
+  text-align: center;
+  padding: 80px 0;
+}
+.category-item {
+  padding: 20px;
+}
+.icon-placeholder {
+  width: 70px;
+  height: 70px;
+  background: #fff0e0;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+.section-title {
+  font-weight: 700;
+}
+
+/* --- FEATURED PRODUCTS --- */
+.featured-products {
+  padding: 80px 0;
+  background: #fff7f0;
+}
+.product-card {
+  border: none;
+  text-align: center;
+}
+.product-image {
+  width: 100%;
+  height: 200px;
+  background: #f2f2f2;
+  border-radius: 12px;
+}
+
+/* --- QUALITY --- */
+.quality-section {
+  padding: 80px 0;
+}
+.quality-section .learn-more-btn {
+  background: #ff8d28;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 24px;
+}
+
+.quality-image{
+  height: 270px;
+  width: 270px;
+  margin-left: 180px;
+  background-color: #ff8c00;
+  border-top-left-radius: 199px;
+  border-top-right-radius: 125px;
+  border-bottom-right-radius: 180px;
+  border-bottom-left-radius: 140px;
+}
+
+.quality-img{
+  height: 280px;
+  width: 250px;
+  margin-left: -16px;
+}
+
+/* --- BEST SELLING --- */
+.best-selling {
+  padding: 80px 0;
+  background: #fff;
+}
+.shop-all-btn {
+  background: #f87537;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+}
+
+/* --- SHOP BY PET --- */
+.shop-by-pet {
+  padding: 80px 0;
+  text-align: center;
+}
+.pet-icon {
+  width: 70px;
+  height: 70px;
+  background: #fff0e0;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+

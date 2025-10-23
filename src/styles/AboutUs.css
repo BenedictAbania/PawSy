@@ -1,0 +1,33 @@
+.about-hero-img {
+  max-width: 90%;
+  border-radius: 12px;
+}
+
+.testimonial-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.testimonial-circle::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 200px;
+  height: 200px;
+  background-color: #fba81f; /* accent color */
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.testimonial-placeholder {
+  width: 180px;
+  height: 180px;
+  background-color: #ffe0b2;
+  border: 2px dashed #fd7e14;
+}
+
+.Our-Vision, .Our-Mission {
+  background-color: #0000;
+  font-weight: 700;
+}
