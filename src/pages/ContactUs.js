@@ -57,7 +57,10 @@ const ContactUs = () => {
                 <span className="icon-circle me-3">Icon</span>
                 <div>
                   <strong>Address</strong>
-                  <div>Katapatan Homes, Brgy. Banay-banay, Cabuyao, Laguna, Philippines</div>
+                  <div>
+                    Katapatan Homes, Brgy. Banay-banay, Cabuyao, Laguna,
+                    Philippines
+                  </div>
                 </div>
               </li>
 
@@ -81,7 +84,7 @@ const ContactUs = () => {
                 <span className="icon-circle me-3">ICon</span>
                 <div>
                   <strong>Hours</strong>
-                  <div>Mon – Fri: 10AM – 10PM</div>
+                  <div>Mon - Fri: 10AM - 10PM</div>
                 </div>
               </li>
             </ul>

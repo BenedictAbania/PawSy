@@ -111,7 +111,7 @@ const Shop = () => {
         <Col md={3}>
           <div className="mb-4">
             <h5>Filter by Category</h5>
-            {["All", "Food", "Feeding", "Beds", "Accessories"].map((cat) => (
+            {["All", "Accessories", "Food", "Furniture", "Bags"].map((cat) => (
               <Form.Check
                 key={cat}
                 label={cat}

@@ -1,13 +1,39 @@
-// src/pages/LandingPage.js
-import React, { useState } from "react";
+import React from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles/LandingPage.css";
 import heroImage from "../assets/hero-image.png";
 import qualityImage from "../assets/dogNcat.png";
 
+// Import JSON data
+import featuredProducts from "../data/featuredProducts.json";
+import bestSellingProducts from "../data/bestSellingProducts.json";
+
+// Import category images
+import accessoriesImg from "../assets/categories/Accessories.png";
+import foodImg from "../assets/categories/Food.png";
+import furnitureImg from "../assets/categories/Furniture.png";
+import bagImg from "../assets/categories/Bag.png";
+
 const LandingPage = () => {
   const navigate = useNavigate();
+
+  const categories = [
+    { name: "Accessories", image: accessoriesImg },
+    { name: "Food", image: foodImg },
+    { name: "Furniture", image: furnitureImg },
+    { name: "Bags", image: bagImg },
+  ];
+
+  const pets = [
+    { name: "Cat", image: require("../assets/pets/cat.png") },
+    { name: "Dog", image: require("../assets/pets/dog.png") },
+    { name: "Hamster", image: require("../assets/pets/hamster.png") },
+    { name: "Parrot", image: require("../assets/pets/parrot.png") },
+    { name: "Rabbit", image: require("../assets/pets/rabbit.png") },
+    { name: "Turtle", image: require("../assets/pets/turtle.png") },
+  ];
+
   return (
     <div className="landing-page">
       {/* HERO SECTION */}
@@ -37,17 +63,25 @@ const LandingPage = () => {
           </Row>
         </Container>
       </section>
-
       {/* CATEGORY SECTION */}
       <section className="category-section">
         <Container>
-          <h3 className="section-title">Browse by category</h3>
+          <h3 className="section-title">Browse by Category</h3>
           <Row className="justify-content-center mt-4">
-            {["Accessories", "Food", "Furniture", "Bags"].map((cat, index) => (
+            {categories.map((cat, index) => (
               <Col key={index} xs={6} md={3} className="text-center">
-                <div className="category-item">
-                  <div className="icon-placeholder"></div>
-                  <p>{cat}</p>
+                <div
+                  className="category-item"
+                  onClick={() =>
+                    navigate(`/shop?category=${cat.name.toLowerCase()}`)
+                  }
+                >
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="category-icon"
+                  />
+                  <p>{cat.name}</p>
                 </div>
               </Col>
             ))}
@@ -58,15 +92,20 @@ const LandingPage = () => {
       {/* FEATURED PRODUCTS */}
       <section className="featured-products">
         <Container>
-          <h3 className="section-title">Featured products</h3>
+          <h3 className="section-title">Featured Products</h3>
           <Row className="justify-content-center mt-4">
-            {[1, 2, 3].map((i) => (
-              <Col key={i} md={4} className="mb-4">
+            {featuredProducts.map((product) => (
+              <Col key={product.id} md={4} className="mb-4">
                 <Card className="product-card">
-                  <div className="product-image"></div>
+                  <Card.Img
+                    variant="top"
+                    src={product.image}
+                    alt={product.name}
+                    className="product-image"
+                  />
                   <Card.Body>
-                    <Card.Title>Product Name</Card.Title>
-                    <Card.Text>$19.99</Card.Text>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Text>${product.price.toFixed(2)}</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
@@ -110,19 +149,24 @@ const LandingPage = () => {
       <section className="best-selling">
         <Container>
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="section-title">Best selling products</h3>
+            <h3 className="section-title">Best Selling Products</h3>
             <Button className="shop-all-btn" onClick={() => navigate("/shop")}>
               Shop All
             </Button>
           </div>
           <Row className="mt-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <Col key={i} xs={6} md={3} className="mb-4">
+            {bestSellingProducts.map((product) => (
+              <Col key={product.id} xs={6} md={3} className="mb-4">
                 <Card className="product-card">
-                  <div className="product-image"></div>
+                  <Card.Img
+                    variant="top"
+                    src={product.image}
+                    alt={product.name}
+                    className="product-image"
+                  />
                   <Card.Body>
-                    <Card.Title>Product Name</Card.Title>
-                    <Card.Text>$19.99</Card.Text>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Text>${product.price.toFixed(2)}</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
@@ -131,19 +175,12 @@ const LandingPage = () => {
         </Container>
       </section>
 
-      {/* SHOP BY PET (Functional) */}
+      {/* SHOP BY PET */}
       <section className="shop-by-pet-section text-center mb-5">
         <Container>
           <h3 className="section-title">Shop by Pet</h3>
           <Row className="justify-content-center mt-4">
-            {[
-              { name: "Cat", image: require("../assets/pets/cat.png") },
-              { name: "Dog", image: require("../assets/pets/dog.png") },
-              { name: "Hamster", image: require("../assets/pets/hamster.png") },
-              { name: "Parrot", image: require("../assets/pets/parrot.png") },
-              { name: "Rabbit", image: require("../assets/pets/rabbit.png") },
-              { name: "Turtle", image: require("../assets/pets/turtle.png") },
-            ].map((pet, index) => (
+            {pets.map((pet, index) => (
               <Col key={index} xs={4} md={2} className="text-center">
                 <div
                   className="pet-icon-container"
