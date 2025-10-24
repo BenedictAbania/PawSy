@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Cat Scratching Post",
+    "price": 39.99,
+    "image": "/assets/products/cat-scratcher.png"
+  },
+  {
+    "id": 2,
+    "name": "Dog Collar",
+    "price": 19.99,
+    "image": "/assets/products/dog-collar.png"
+  },
+  {
+    "id": 3,
+    "name": "Hamster Wheel",
+    "price": 24.99,
+    "image": "/assets/products/hamster-wheel.png"
+  },
+  {
+    "id": 4,
+    "name": "Rabbit Hutch",
+    "price": 89.99,
+    "image": "/assets/products/rabbit-hutch.png"
+  }
+]
