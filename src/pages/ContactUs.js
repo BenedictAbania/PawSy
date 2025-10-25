@@ -1,6 +1,9 @@
 // src/pages/ContactUs.js
 import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faClock } from "@fortawesome/free-regular-svg-icons";
 import "../styles/ContactUs.css";
 
 const ContactUs = () => {
@@ -54,37 +57,41 @@ const ContactUs = () => {
 
             <ul className="contact-info list-unstyled mt-4">
               <li className="d-flex align-items-start mb-3">
-                <span className="icon-circle me-3">Icon</span>
+                <span className="icon-circle me-3">
+                  <FontAwesomeIcon icon={faLocationDot} />
+                </span>
                 <div>
-                  <strong>Address</strong>
-                  <div>
+                  <strong>
                     Katapatan Homes, Brgy. Banay-banay, Cabuyao, Laguna,
                     Philippines
-                  </div>
+                  </strong>
                 </div>
               </li>
 
               <li className="d-flex align-items-start mb-3">
-                <span className="icon-circle me-3">Icon</span>
+                <span className="icon-circle me-3">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </span>
                 <div>
-                  <strong>Email</strong>
-                  <div>groupone@outlook.com</div>
+                  <strong>groupone@outlook.com</strong>
                 </div>
               </li>
 
               <li className="d-flex align-items-start mb-3">
-                <span className="icon-circle me-3">Icon</span>
+                <span className="icon-circle me-3">
+                  <FontAwesomeIcon icon={faPhone} />
+                </span>
                 <div>
-                  <strong>Phone</strong>
-                  <div>+775 378-6348</div>
+                  <strong>+775 378-6348</strong>
                 </div>
               </li>
 
               <li className="d-flex align-items-start mb-3">
-                <span className="icon-circle me-3">ICon</span>
+                <span className="icon-circle me-3">
+                  <FontAwesomeIcon icon={faClock} />
+                </span>
                 <div>
-                  <strong>Hours</strong>
-                  <div>Mon - Fri: 10AM - 10PM</div>
+                  <strong>Mon - Fri: 10AM - 10PM</strong>
                 </div>
               </li>
             </ul>
@@ -93,15 +100,10 @@ const ContactUs = () => {
 
         {/* Social Media Section */}
         <section className="social-section text-center mt-5">
-          <h4>Social Media Links</h4>
+          <h4 className="social">Social Media Links</h4>
           <p className="text-muted">
             Follow us for the latest deals, pet tips, and adorable moments!
           </p>
-          <div className="social-icons mt-3">
-            <span className="social-pill">Icon</span>
-            <span className="social-pill">Icon</span>
-            <span className="social-pill">Icon</span>
-          </div>
         </section>
       </Container>
     </div>

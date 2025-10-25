@@ -1,4 +1,3 @@
-// src/pages/Shop.js
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
@@ -27,26 +26,25 @@ const petTypes = [
 
 const Shop = () => {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const initialPet = queryParams.get("petType") || "All";
 
   const [favorites, setFavorites] = useState([]);
-
-  const toggleFavorite = (id) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
-    );
-  };
-
   const [products, setProducts] = useState(productsData);
   const [filters, setFilters] = useState({
-    petType: initialPet,
+    petType: "All",
     category: "All",
     brand: "All",
     minPrice: 0,
     maxPrice: 100,
   });
 
+  // Toggle favorites
+  const toggleFavorite = (id) => {
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
+    );
+  };
+
+  // Handle filters
   const handleFilterChange = (field, value) => {
     if (field === "petType") {
       setFilters({
@@ -58,6 +56,23 @@ const Shop = () => {
     }
   };
 
+  // Read query parameters safely
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const petFromQuery = params.get("petType");
+    const categoryFromQuery = params.get("category");
+
+    if (petFromQuery) {
+      setFilters((prev) => ({ ...prev, petType: petFromQuery }));
+    }
+    if (categoryFromQuery) {
+      const formatted =
+        categoryFromQuery.charAt(0).toUpperCase() + categoryFromQuery.slice(1);
+      setFilters((prev) => ({ ...prev, category: formatted }));
+    }
+  }, [location.search]);
+
+  // Apply filters
   useEffect(() => {
     let filtered = productsData;
 
@@ -77,13 +92,6 @@ const Shop = () => {
 
     setProducts(filtered);
   }, [filters]);
-
-  useEffect(() => {
-    const petFromQuery = queryParams.get("petType");
-    if (petFromQuery && petFromQuery !== filters.petType) {
-      setFilters((prev) => ({ ...prev, petType: petFromQuery }));
-    }
-  }, [location.search]);
 
   return (
     <Container className="my-5">
@@ -107,7 +115,7 @@ const Shop = () => {
       </section>
 
       <Row>
-        {/* SIDEBAR FILTERS (no pet filter here) */}
+        {/* SIDEBAR FILTERS */}
         <Col md={3}>
           <div className="mb-4">
             <h5>Filter by Category</h5>
@@ -168,7 +176,7 @@ const Shop = () => {
             {products.length > 0 ? (
               products.map((product) => (
                 <Col md={4} className="mb-4" key={product.id}>
-                  <Card className="h-100 shadow-sm">
+                  <Card className="shop-product h-100 shadow-sm">
                     <Card.Img
                       variant="top"
                       src={product.image}
@@ -179,21 +187,23 @@ const Shop = () => {
                       <div className="d-flex justify-content-between align-items-start">
                         <div>
                           <Card.Title>{product.name}</Card.Title>
-                          <Card.Text>${product.price.toFixed(2)}</Card.Text>
+                          <Card.Text>
+                            ${product.price.toFixed(2)}
+                            <Button
+                              variant="link"
+                              className="heart-btn p-0"
+                              onClick={() => toggleFavorite(product.id)}
+                            >
+                              <FontAwesomeIcon
+                                icon={
+                                  favorites.includes(product.id)
+                                    ? faHeartSolid
+                                    : faHeartRegular
+                                }
+                              />
+                            </Button>
+                          </Card.Text>
                         </div>
-                        <Button
-                          variant="link"
-                          className="heart-btn p-0"
-                          onClick={() => toggleFavorite(product.id)}
-                        >
-                          <FontAwesomeIcon
-                            icon={
-                              favorites.includes(product.id)
-                                ? faHeartSolid
-                                : faHeartRegular
-                            }
-                          />
-                        </Button>
                       </div>
                     </Card.Body>
                   </Card>
