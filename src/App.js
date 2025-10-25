@@ -2,14 +2,16 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import NavBar from "./components/Navbar";
-import Footer from "./components/Footer";
+import NavBar from "./pages/Navbar";
+import Footer from "./pages/Footer";
 import LandingPage from "./pages/LandingPage";
 import Shop from "./pages/Shop";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Account from "./pages/Account";
 import EditProfile from "./pages/EditProfile";
+import CartPage from "./pages/CartPage";
+import Checkout_Address from "./pages/Checkout_Address";
 
 function App() {
   return (
