@@ -1,7 +1,11 @@
 .main-navbar {
   background-color: #ffffff;
   padding: 15px 0;
+<<<<<<< HEAD
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+=======
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+>>>>>>> origin/feature/Account
 }
 
 .brand-logo {
@@ -10,6 +14,12 @@
   color: #000000 !important;
 }
 
+<<<<<<< HEAD
+=======
+.brand-logo .icon-logo {
+  height: 60px;
+}
+>>>>>>> origin/feature/Account
 .nav-link-custom {
   color: #333 !important;
   margin: 0 12px;
@@ -42,7 +52,10 @@
   color: #fd7e14 !important;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feature/Account
 .nav-icons {
   display: flex;
   gap: 12px;
@@ -57,3 +70,17 @@
 .nav-icon:hover {
   color: #f87537;
 }
+<<<<<<< HEAD
+=======
+
+/* added: keep the icon color same as surrounding text
+reason: turns blue when hovered */
+.nav-icons .nav-icon a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav-icons .nav-icon a:hover {
+  color: #f87537;
+}
+>>>>>>> origin/feature/Account

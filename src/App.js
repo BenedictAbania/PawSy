@@ -8,6 +8,8 @@ import LandingPage from "./pages/LandingPage";
 import Shop from "./pages/Shop";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import Account from "./pages/Account";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
       </Routes>
       <Footer />
     </BrowserRouter>

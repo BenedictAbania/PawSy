@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React from "react";
+>>>>>>> origin/feature/Account
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles/LandingPage.css";
 import heroImage from "../assets/hero-image.png";
 import qualityImage from "../assets/dogNcat.png";
+<<<<<<< HEAD
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -11,6 +16,8 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+=======
+>>>>>>> origin/feature/Account
 
 // Import JSON data
 import featuredProducts from "../data/featuredProducts.json";
@@ -24,7 +31,10 @@ import bagImg from "../assets/categories/Bag.png";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [favorites, setFavorites] = useState([]);
+=======
+>>>>>>> origin/feature/Account
 
   const categories = [
     { name: "Accessories", image: accessoriesImg },
@@ -42,6 +52,7 @@ const LandingPage = () => {
     { name: "Turtle", image: require("../assets/pets/turtle.png") },
   ];
 
+<<<<<<< HEAD
   // Toggle favorites
   const toggleFavorite = (id) => {
     setFavorites((prev) =>
@@ -49,6 +60,8 @@ const LandingPage = () => {
     );
   };
 
+=======
+>>>>>>> origin/feature/Account
   return (
     <div className="landing-page">
       {/* HERO SECTION */}
@@ -103,6 +116,7 @@ const LandingPage = () => {
           </Row>
         </Container>
       </section>
+<<<<<<< HEAD
       {/* FEATURED PRODUCTS */}
       <section className="featured-products">
         <Container>
@@ -169,6 +183,34 @@ const LandingPage = () => {
           </div>
         </Container>
       </section>
+=======
+
+      {/* FEATURED PRODUCTS */}
+      <section className="featured-products">
+        <Container>
+          <h3 className="section-title">Featured Products</h3>
+          <Row className="justify-content-center mt-4">
+            {featuredProducts.map((product) => (
+              <Col key={product.id} md={4} className="mb-4">
+                <Card className="product-card">
+                  <Card.Img
+                    variant="top"
+                    src={product.image}
+                    alt={product.name}
+                    className="product-image"
+                  />
+                  <Card.Body>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Text>${product.price.toFixed(2)}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+>>>>>>> origin/feature/Account
       {/* QUALITY SECTION */}
       <section className="quality-section">
         <Container>
@@ -183,8 +225,12 @@ const LandingPage = () => {
               </div>
             </Col>
             <Col md={6}>
+<<<<<<< HEAD
               <h3 className="quality-header">Quality you can trust,</h3>
               <h3 className="quality-header2">Comfort they can feel</h3>
+=======
+              <h3>Quality you can trust, Comfort they can feel</h3>
+>>>>>>> origin/feature/Account
               <p>
                 Our mission is simple. We provide trusted, affordable, and
                 high-quality supplies to help every pet live a happy and healthy
@@ -200,6 +246,10 @@ const LandingPage = () => {
           </Row>
         </Container>
       </section>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feature/Account
       {/* BEST SELLING */}
       <section className="best-selling">
         <Container>
@@ -221,6 +271,7 @@ const LandingPage = () => {
                   />
                   <Card.Body>
                     <Card.Title>{product.name}</Card.Title>
+<<<<<<< HEAD
                     <Card.Text>
                       ${product.price.toFixed(2)}
                       <Button
@@ -237,6 +288,9 @@ const LandingPage = () => {
                         />
                       </Button>
                     </Card.Text>
+=======
+                    <Card.Text>${product.price.toFixed(2)}</Card.Text>
+>>>>>>> origin/feature/Account
                   </Card.Body>
                 </Card>
               </Col>
@@ -244,6 +298,10 @@ const LandingPage = () => {
           </Row>
         </Container>
       </section>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feature/Account
       {/* SHOP BY PET */}
       <section className="shop-by-pet-section text-center mb-5">
         <Container>
