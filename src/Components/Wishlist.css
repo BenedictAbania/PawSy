@@ -1,0 +1,237 @@
+.wishlist {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.wishlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.wishlist-header h1 {
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #f5f5f5;
+}
+
+.move-all-cart {
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.move-all-cart:hover {
+  background-color: #e55a2b;
+  transform: translateY(-2px);
+}
+
+/* HORIZONTAL LAYOUT */
+.wishlist-items {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.wishlist-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 15px;
+  transition: all 0.3s ease;
+  min-width: 250px;
+  flex-shrink: 0;
+}
+
+.wishlist-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.item-image-section {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.item-image {
+  width: 100%;
+  height: 150px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ff6b35;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #ff4444;
+  color: white;
+  transform: scale(1.1);
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.item-name {
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.price-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item-price {
+  color: #ff6b35;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.original-price {
+  color: #666;
+  font-size: 14px;
+  text-decoration: line-through;
+}
+
+.wishlist-add-to-cart-btn {
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.wishlist-add-to-cart-btn:hover {
+  background-color: #e55a2b;
+  transform: translateY(-2px);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.wishlist-items::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.wishlist-items {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+@media (max-width: 768px) {
+  .wishlist-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .header-left {
+    justify-content: center;
+  }
+  
+  .wishlist-header h1 {
+    font-size: 20px;
+  }
+  
+  .wishlist-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    overflow-x: visible;
+  }
+  
+  .wishlist-item {
+    min-width: auto;
+  }
+  
+  .move-all-cart {
+    width: 100%;
+    max-width: 200px;
+    align-self: center;
+  }
+}
