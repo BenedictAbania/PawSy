@@ -2,8 +2,8 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import NavBar from "./pages/Navbar";
-import Footer from "./pages/Footer";
+import NavBar from "./components/Navbar";
+import Footer from "./components/Footer";
 import LandingPage from "./pages/LandingPage";
 import Shop from "./pages/Shop";
 import AboutUs from "./pages/AboutUs";
