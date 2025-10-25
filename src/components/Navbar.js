@@ -28,7 +28,7 @@ const NavBar = () => {
             <Button variant="dark" className="search-btn"><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
           </Form>
           <div className="nav-icons">
-            <span className="nav-icon"><FontAwesomeIcon icon={faCartShopping} /></span>
+            <span className="nav-icon"><Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link></span>
             <span className="nav-icon"><FontAwesomeIcon icon={faHeart} /></span>
             <span className="nav-icon"><Link to="/account"><FontAwesomeIcon icon={faUser} /></Link></span>
           </div>
