@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Container, Nav, Navbar } from 'react-bootstrap'; // Add Container here
 import "../styles/CartPage.css";
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope, faClock } from "@fortawesome/free-regular-svg-icons";
+import CartPage from './pages/CartPage.js';
 
 const CartPage = () => {
   const navigate = useNavigate();

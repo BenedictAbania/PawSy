@@ -25,6 +25,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/account" element={<Account />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
