@@ -10,8 +10,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Account from "./pages/Account";
 import EditProfile from "./pages/EditProfile";
-import CartPage from "./pages/CartPage";
-import Checkout_Address from "./pages/Checkout_Address";
+
 
 function App() {
   return (
@@ -25,7 +24,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/account" element={<Account />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/cart" element={<CartPage />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>
