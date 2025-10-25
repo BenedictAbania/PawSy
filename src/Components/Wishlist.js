@@ -5,7 +5,7 @@ const Wishlist = ({ onNavigateToProduct }) => {
   const [wishlistItems, setWishlistItems] = useState([
     { 
       id: 1, 
-      name: "Product Name", 
+      name: "Pet flori cat food", 
       price: 960, 
       originalPrice: 1160,
       discount: "40% off",
@@ -13,19 +13,19 @@ const Wishlist = ({ onNavigateToProduct }) => {
     },
     { 
       id: 2, 
-      name: "Product Name", 
+      name: "Ollie", 
       price: 1960, 
       image: "/images/dog-food 2.jpg" 
     },
     { 
       id: 3, 
-      name: "Product Name", 
+      name: "Dockies", 
       price: 550, 
       image: "/images/dockies.jpg" 
     },
     { 
       id: 4, 
-      name: "Product Name", 
+      name: "Tasty Cat food", 
       price: 760, 
       image: "/images/cat-food 2.jpg" 
     }
