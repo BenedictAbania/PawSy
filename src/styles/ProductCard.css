@@ -1,0 +1,82 @@
+/* We only need a few styles now because 'react-bootstrap' 
+  handles the card layout, padding, and shadows.
+*/
+
+.product-card-unified {
+  /* A subtle transition for the hover effect */
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  border: 1px solid #e9ecef; /* Lighter border */
+}
+
+.product-card-unified:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Fixes image aspect ratio */
+.product-card-unified .card-img-top {
+  height: 200px;
+  object-fit: cover; /* Ensures image covers the area without distortion */
+}
+
+/* Styles for the new <Link> wrapper */
+.product-card-link {
+  text-decoration: none;
+  color: #212529; /* Standard text color */
+}
+
+.product-card-link:hover {
+  color: #ff7a00; /* Unified theme color on hover */
+}
+
+.product-card-title .product-card-link {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Styles for the star rating */
+.star-rating {
+  color: #f59e0b; /* Gold color for stars */
+  margin: 8px 0;
+}
+
+.rating-value {
+  color: #6c757d; /* Muted text color for the number */
+  font-size: 0.9em;
+  margin-left: 4px;
+}
+
+/* --- NEW --- Styles for the heart button */
+.heart-btn {
+  font-size: 1.3rem;
+  color: #e63946; /* A nice red color */
+}
+
+/* Remove blue link color and underline */
+.heart-btn,
+.heart-btn:hover {
+  text-decoration: none;
+  box-shadow: none !important;
+}
+/* --- END NEW --- */
+
+
+/* UNIFICATION:
+  We override the 'warning' variant to use our app's
+  specific orange color, matching the checkout buttons.
+*/
+.add-to-cart-btn,
+.add-to-cart-btn:hover,
+.add-to-cart-btn:active,
+.add-to-cart-btn:focus {
+  background-color: #ff7a00;
+  border-color: #ff7a00;
+  color: white;
+  font-weight: 600;
+  box-shadow: none !important;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e56e00;
+  border-color: #e56e00;
+}

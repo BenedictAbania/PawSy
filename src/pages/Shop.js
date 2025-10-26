@@ -1,12 +1,15 @@
 // src/pages/Shop.js
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Alert, Card, Button, Form } from "react-bootstrap";
 import productsData from "../data/products.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Shop.css";
+
+// --- 2. IMPORT YOUR NEW CARD ---
+import ProductCard from "../components/ProductCard";
 
 // Import pet silhouettes
 import catImg from "../assets/pets/cat.png";
@@ -42,11 +45,26 @@ const Shop = () => {
   const [products, setProducts] = useState(productsData);
   const [filters, setFilters] = useState({
     petType: initialPet,
-    category: "All",
+    category: "All",    
     brand: "All",
     minPrice: 0,
     maxPrice: 100,
   });
+
+    // --- 3. ADD ALERT STATE & HANDLER (Must be *inside* the Shop function) ---
+  const [showCartAlert, setShowCartAlert] = useState(false);
+  const [alertProduct, setAlertProduct] = useState("");
+
+  const handleAddToCart = (product) => {
+    console.log("Added to cart:", product.name);
+    setAlertProduct(product.name);
+    setShowCartAlert(true);
+    setTimeout(() => {
+      setShowCartAlert(false);
+  }, 3000);
+  // In a real app, you'd update global cart state here
+  };
+  // --- END NEW STATE & HANDLER ---
 
   const handleFilterChange = (field, value) => {
     if (field === "petType") {
@@ -88,6 +106,16 @@ const Shop = () => {
 
   return (
     <Container className="my-5">
+      {/* --- 4. ADD THE FLOATING ALERT (Must be *inside* the return) --- */}
+      <Alert 
+        variant="success"
+        show={showCartAlert}
+        onClose={() => setShowCartAlert(false)}
+        dismissible
+        className="cart-alert"
+      >
+        Added <strong>{alertProduct}</strong> to your cart!
+      </Alert>
       {/* SHOP BY PET SECTION */}
       <section className="shop-by-pet-section text-center mb-5">
         <h3 className="section-title">Shop by Pet</h3>

@@ -12,7 +12,8 @@ import Account from "./pages/Account";
 import EditProfile from "./pages/EditProfile";
 import CartPage from "./pages/CartPage";
 import CheckoutAddress from "./pages/Checkout_Address";
-
+import Shipping from "./pages/Shipping";
+import Payment from "./pages/Payment"; 
 
 function App() {
   return (
@@ -25,9 +26,14 @@ function App() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
+        {/* --- New Checkout Flow Routes --- */}
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutAddress />} />
+        <Route path="/shipping" element={<Shipping />} /> 
+        <Route path="/payment" element={<Payment />} />
+
+        {/* You'll need to create this page next */}
+        <Route path="/confirmation" element={<div>Order Confirmation Page</div>} />
       </Routes>
       <Footer />
     </BrowserRouter>
