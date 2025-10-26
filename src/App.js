@@ -11,6 +11,7 @@ import ContactUs from "./pages/ContactUs";
 import Account from "./pages/Account";
 import EditProfile from "./pages/EditProfile";
 import CartPage from "./pages/CartPage";
+import CheckoutAddress from "./pages/Checkout_Address";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutAddress />} />
       </Routes>
       <Footer />
     </BrowserRouter>
