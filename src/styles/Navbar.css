@@ -1,7 +1,9 @@
 .main-navbar {
   background-color: #ffffff;
   padding: 15px 0;
+
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
 }
 
 .brand-logo {
@@ -10,9 +12,12 @@
   color: #000000 !important;
 }
 
+
 .brand-logo .icon-logo {
   height: 60px;
+
 }
+
 .nav-link-custom {
   color: #333 !important;
   margin: 0 12px;
@@ -45,7 +50,9 @@
   color: #fd7e14 !important;
 }
 
+/* whhat */
 .nav-icons {
+
   display: flex;
   gap: 12px;
   margin-left: 15px;
@@ -60,6 +67,7 @@
   color: #f87537;
 }
 
+
 /* added: keep the icon color same as surrounding text
 reason: turns blue when hovered */
 .nav-icons .nav-icon a {
@@ -70,3 +78,4 @@ reason: turns blue when hovered */
 .nav-icons .nav-icon a:hover {
   color: #f87537;
 }
+

@@ -8,11 +8,21 @@
 }
 
 .testimonial-circle {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
+  margin-top: -100px;
+  width: 220px;
+  height: 220px;
   background-color: #ff7e00;
-  margin: 0 auto;
+  border-top-left-radius: 199px;
+  border-top-right-radius: 125px;
+  border-bottom-right-radius: 180px;
+  border-bottom-left-radius: 140px;
+}
+
+.Christian {
+  margin-top: 30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 
 .testimonial-img-wrapper {
@@ -27,6 +37,7 @@
 .about-text {
   color: #FD7E14;
 }
+
 .why-choose-section {
   margin-top: 50px;
 }
@@ -61,6 +72,11 @@
 .about-text:hover{
   transform: translateY(-10px);
   transition: all 0.3s ease;
+}
+
+#owner{
+  margin-top: 10px;
+  font-size: small;
 }
 
 

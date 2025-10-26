@@ -35,4 +35,25 @@
 
 .social-icons i:hover {
   color: #ff8c00;
+
+}
+
+.icon-circle{
+  width: 35px;
+  height: 35px;
+  background-color: #ff8c00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.icon-circle:hover{
+  background-color: #000000;
+}
+
+.social{
+  font-weight:bolder;
+  
 }

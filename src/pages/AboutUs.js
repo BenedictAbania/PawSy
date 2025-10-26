@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import heroPets from "../assets/about-pets.png";
+import Christian from "../assets/christian.jpg";
 import "../styles/AboutUs.css";
 
 const AboutUs = () => {
@@ -106,24 +107,29 @@ const AboutUs = () => {
       {/* TESTIMONIALS */}
       <section className="testimonials-section py-5 bg-light">
         <Container>
-          <h3 className="text-center fw-bold mb-5">What people say about us</h3>
           <Row className="align-items-center justify-content-center">
+            <h5 className="about-text fw-bold">Testemonials</h5>
+            <h3 className="people-text fw-bold mb-5">
+              What people say about us
+            </h3>
             <Col md={7}>
               <blockquote className="blockquote text-center text-md-start">
                 <p className="fs-5 fst-italic">
                   “I’m really impressed with the quality of the cat food and
-                  litter I bought from PawCentral! Everything arrived neatly
+                  litter I bought from PetCentral. Everything arrived neatly
                   packed, and the website was so easy to use. Definitely
-                  recommending it to all my fellow cat lovers.”
+                  recommending it to all my fellow dog lovers.”
                 </p>
-                <footer className="blockquote-footer mt-3">
-                  Jonas P., <cite title="Source Title">Cat Owner</cite>
-                </footer>
+                <h5 className="mt-4 mb-0">
+                  Christian B. <p id="owner">Dog Owner</p>
+                </h5>
               </blockquote>
             </Col>
             <Col md={4} className="text-center mt-4 mt-md-0">
               <div className="testimonial-img-wrapper mx-auto">
-                <div className="testimonial-circle shadow"></div>
+                <div className="testimonial-circle shadow">
+                  <img src={Christian} alt="cillian" className="Christian" />
+                </div>
               </div>
             </Col>
           </Row>
