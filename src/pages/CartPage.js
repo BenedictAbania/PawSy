@@ -12,7 +12,7 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
-      name: "JENX ULIT",
+      name: "JENX CATFOOD",
       color: "Gunnared biege",
       price: 149.99,
       quantity: 1,
