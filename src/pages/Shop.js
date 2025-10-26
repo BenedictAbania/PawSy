@@ -1,17 +1,16 @@
-// src/pages/Shop.js
+
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Container, Row, Col, Alert, Card, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Alert, Button, Form } from "react-bootstrap"; 
 import productsData from "../data/products.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Shop.css";
 
-// --- 2. IMPORT YOUR NEW CARD ---
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/ProductCard"; 
 
-// Import pet silhouettes
+
 import catImg from "../assets/pets/cat.png";
 import dogImg from "../assets/pets/dog.png";
 import hamsterImg from "../assets/pets/hamster.png";
@@ -28,19 +27,28 @@ const petTypes = [
   { name: "Turtle", image: turtleImg },
 ];
 
-const Shop = () => {
+// Receive global state/functions if lifted, otherwise keep local
+const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavorite }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialPet = queryParams.get("petType") || "All";
 
-  const [favorites, setFavorites] = useState([]);
+  // Use local state if global state isn't provided (for flexibility)
+  const [localFavorites, setLocalFavorites] = useState([]);
+  const favorites = globalFavorites !== undefined ? globalFavorites : localFavorites;
+  const setFavorites = globalFavorites !== undefined ? () => {} : setLocalFavorites; // No-op if global
 
-    // Toggle favorites
-  const toggleFavorite = (id) => {
+  // Use local toggle if global function isn't provided
+  const localToggleFavorite = (product) => { // Updated to accept product object
+    const id = product.id;
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
+      prev.find(item => item.id === id) 
+        ? prev.filter((item) => item.id !== id) 
+        : [...prev, product] // Store the whole product object
     );
   };
+  const onToggleFavorite = globalToggleFavorite || localToggleFavorite;
+
 
   const [products, setProducts] = useState(productsData);
   const [filters, setFilters] = useState({
@@ -48,10 +56,10 @@ const Shop = () => {
     category: "All",    
     brand: "All",
     minPrice: 0,
-    maxPrice: 100,
+    maxPrice: 100, // Assuming max price is 100 based on range max
   });
 
-    // --- 3. ADD ALERT STATE & HANDLER (Must be *inside* the Shop function) ---
+
   const [showCartAlert, setShowCartAlert] = useState(false);
   const [alertProduct, setAlertProduct] = useState("");
 
@@ -61,11 +69,11 @@ const Shop = () => {
     setShowCartAlert(true);
     setTimeout(() => {
       setShowCartAlert(false);
-  }, 3000);
-  // In a real app, you'd update global cart state here
+    }, 3000);
+    // In a real app, you'd update global cart state here
   };
-  // --- END NEW STATE & HANDLER ---
 
+  
   const handleFilterChange = (field, value) => {
     if (field === "petType") {
       setFilters({
@@ -77,6 +85,7 @@ const Shop = () => {
     }
   };
 
+  // --- Filter Logic (useEffect) ---
   useEffect(() => {
     let filtered = productsData;
 
@@ -97,25 +106,28 @@ const Shop = () => {
     setProducts(filtered);
   }, [filters]);
 
+  // --- Update filter from URL Query Params ---
   useEffect(() => {
     const petFromQuery = queryParams.get("petType");
     if (petFromQuery && petFromQuery !== filters.petType) {
       setFilters((prev) => ({ ...prev, petType: petFromQuery }));
     }
-  }, [location.search]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search]); // Depend only on location.search
 
   return (
     <Container className="my-5">
-      {/* --- 4. ADD THE FLOATING ALERT (Must be *inside* the return) --- */}
+      {/* --- Floating Cart Alert --- */}
       <Alert 
         variant="success"
         show={showCartAlert}
         onClose={() => setShowCartAlert(false)}
         dismissible
-        className="cart-alert"
+        className="cart-alert" // Ensure this class is styled (e.g., in App.css or Shop.css)
       >
         Added <strong>{alertProduct}</strong> to your cart!
       </Alert>
+
       {/* SHOP BY PET SECTION */}
       <section className="shop-by-pet-section text-center mb-5">
         <h3 className="section-title">Shop by Pet</h3>
@@ -127,6 +139,9 @@ const Shop = () => {
                 filters.petType === pet.name ? "active" : ""
               }`}
               onClick={() => handleFilterChange("petType", pet.name)}
+              role="button" // Add role for accessibility
+              tabIndex={0}  // Add tabIndex for accessibility
+              onKeyPress={(e) => e.key === 'Enter' && handleFilterChange("petType", pet.name)} // Keyboard accessibility
             >
               <img src={pet.image} alt={pet.name} className="pet-icon-image" />
               <p>{pet.name}</p>
@@ -136,44 +151,50 @@ const Shop = () => {
       </section>
 
       <Row>
-        {/* SIDEBAR FILTERS (no pet filter here) */}
+        {/* SIDEBAR FILTERS */}
         <Col md={3}>
-          <div className="mb-4">
+          {/* Category Filter */}
+          <div className="mb-4 filter-section">
             <h5>Filter by Category</h5>
-            {["All", "Accessories", "Food", "Furniture", "Bags"].map((cat) => (
+            {["All", "Accessories", "Food", "Furniture", "Bags", "Toys", "Treats"].map((cat) => ( // Added more categories
               <Form.Check
                 key={cat}
                 label={cat}
                 name="category"
                 type="radio"
-                id={cat}
+                id={`cat-${cat}`} // Use more specific ID
+                value={cat} // Add value attribute
                 checked={filters.category === cat}
                 onChange={() => handleFilterChange("category", cat)}
               />
             ))}
           </div>
 
-          <div className="mb-4">
+          {/* Brand Filter */}
+          <div className="mb-4 filter-section">
             <h5>Filter by Brand</h5>
-            {["All", "PawBrand", "Royal Canin", "WhiskerCo"].map((brand) => (
+            {["All", "PawBrand", "Royal Canin", "WhiskerCo", "Jinx"].map((brand) => ( // Added Jinx
               <Form.Check
                 key={brand}
                 label={brand}
                 name="brand"
                 type="radio"
-                id={brand}
+                id={`brand-${brand}`} // Use more specific ID
+                value={brand} // Add value attribute
                 checked={filters.brand === brand}
                 onChange={() => handleFilterChange("brand", brand)}
               />
             ))}
           </div>
 
-          <div className="mb-4">
+          {/* Price Filter */}
+          <div className="mb-4 filter-section">
             <h5>Filter by Price</h5>
             <Form.Label>Min: ${filters.minPrice}</Form.Label>
             <Form.Range
               min={0}
-              max={100}
+              max={200} // Increased max price based on sample data
+              step={5} // Add step for better control
               value={filters.minPrice}
               onChange={(e) =>
                 handleFilterChange("minPrice", parseInt(e.target.value))
@@ -182,7 +203,8 @@ const Shop = () => {
             <Form.Label>Max: ${filters.maxPrice}</Form.Label>
             <Form.Range
               min={0}
-              max={100}
+              max={200} // Increased max price
+              step={5}
               value={filters.maxPrice}
               onChange={(e) =>
                 handleFilterChange("maxPrice", parseInt(e.target.value))
@@ -193,43 +215,27 @@ const Shop = () => {
 
         {/* PRODUCT GRID */}
         <Col md={9}>
+          <h2 className="mb-4">Products</h2> {/* More generic title */}
           <Row>
             {products.length > 0 ? (
               products.map((product) => (
-                <Col md={4} className="mb-4" key={product.id}>
-                  <Card className="h-100 shadow-sm">
-                    <Card.Img
-                      variant="top"
-                      src={product.image}
-                      alt={product.name}
-                      style={{ height: "200px", objectFit: "cover" }}
-                    />
-                    <Card.Body className="d-flex flex-column justify-content-between">
-                      <div className="d-flex justify-content-between align-items-start">
-                        <div>
-                          <Card.Title>{product.name}</Card.Title>
-                          <Card.Text>${product.price.toFixed(2)}</Card.Text>
-                        </div>
-                        <Button
-                          variant="link"
-                          className="heart-btn p-0"
-                          onClick={() => toggleFavorite(product.id)}
-                        >
-                          <FontAwesomeIcon
-                            icon={
-                              favorites.includes(product.id)
-                                ? faHeartSolid
-                                : faHeartRegular
-                            }
-                          />
-                        </Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
+                // --- INTEGRATION: Replace old card with ProductCard component ---
+                <Col lg={4} md={6} xs={12} className="mb-4" key={product.id}>
+                  <ProductCard 
+                    product={product}
+                    onAddToCart={handleAddToCart}
+                    // Check if the product ID exists in the favorites array
+                    isFavorite={favorites.some(fav => fav.id === product.id)} 
+                    // Pass the toggle function down
+                    onToggleFavorite={onToggleFavorite} 
+                  />
                 </Col>
+                // --- END INTEGRATION ---
               ))
             ) : (
-              <p>No products found.</p>
+              <Col> {/* Wrap message in Col for proper layout */}
+                <p>No products match the current filters.</p>
+              </Col>
             )}
           </Row>
         </Col>
