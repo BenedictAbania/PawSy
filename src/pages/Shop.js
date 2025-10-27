@@ -1,15 +1,12 @@
-
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Container, Row, Col, Alert, Button, Form } from "react-bootstrap"; 
+import { useNavigate, useLocation } from "react-router-dom";
+import { Container, Row, Col, Alert, Button, Form } from "react-bootstrap";
 import productsData from "../data/products.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Shop.css";
-
-import ProductCard from "../components/ProductCard"; 
-
+import ProductCard from "../components/ProductCard";
 
 import catImg from "../assets/pets/cat.png";
 import dogImg from "../assets/pets/dog.png";
@@ -27,53 +24,76 @@ const petTypes = [
   { name: "Turtle", image: turtleImg },
 ];
 
-// Receive global state/functions if lifted, otherwise keep local
-const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavorite }) => {
+const Shop = ({
+  favorites: globalFavorites,
+  onToggleFavorite: globalToggleFavorite,
+}) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialPet = queryParams.get("petType") || "All";
 
-  // Use local state if global state isn't provided (for flexibility)
+  // --- FAVORITES HANDLING ---
   const [localFavorites, setLocalFavorites] = useState([]);
-  const favorites = globalFavorites !== undefined ? globalFavorites : localFavorites;
-  const setFavorites = globalFavorites !== undefined ? () => {} : setLocalFavorites; // No-op if global
+  const favorites = globalFavorites ?? localFavorites;
+  const setFavorites = globalFavorites ? () => {} : setLocalFavorites;
 
-  // Use local toggle if global function isn't provided
-  const localToggleFavorite = (product) => { // Updated to accept product object
+  const localToggleFavorite = (product) => {
     const id = product.id;
     setFavorites((prev) =>
-      prev.find(item => item.id === id) 
-        ? prev.filter((item) => item.id !== id) 
-        : [...prev, product] // Store the whole product object
+      prev.find((item) => item.id === id)
+        ? prev.filter((item) => item.id !== id)
+        : [...prev, product]
     );
   };
   const onToggleFavorite = globalToggleFavorite || localToggleFavorite;
 
-
+  // --- PRODUCT FILTERS ---
   const [products, setProducts] = useState(productsData);
   const [filters, setFilters] = useState({
     petType: initialPet,
-    category: "All",    
+    category: "All",
     brand: "All",
     minPrice: 0,
-    maxPrice: 100, // Assuming max price is 100 based on range max
+    maxPrice: 100,
   });
 
-
+  // --- CART LOGIC ---
+  const [cartItems, setCartItems] = useState(() => {
+    const saved = localStorage.getItem("cartItems");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showCartAlert, setShowCartAlert] = useState(false);
   const [alertProduct, setAlertProduct] = useState("");
 
   const handleAddToCart = (product) => {
-    console.log("Added to cart:", product.name);
+    const updatedCart = [...cartItems];
+    const existing = updatedCart.find((item) => item.id === product.id);
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      updatedCart.push({ ...product, quantity: 1 });
+    }
+
+    setCartItems(updatedCart);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart)); // Save persistently
+
     setAlertProduct(product.name);
     setShowCartAlert(true);
-    setTimeout(() => {
-      setShowCartAlert(false);
-    }, 3000);
-    // In a real app, you'd update global cart state here
+    setTimeout(() => setShowCartAlert(false), 2500);
   };
 
-  
+  const handleGoToCart = () => {
+    navigate("/cart"); // No need to pass state — CartPage reads from localStorage
+  };
+
+  // --- Keep localStorage updated when cart changes ---
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  // --- FILTER LOGIC ---
   const handleFilterChange = (field, value) => {
     if (field === "petType") {
       setFilters({
@@ -85,7 +105,6 @@ const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavori
     }
   };
 
-  // --- Filter Logic (useEffect) ---
   useEffect(() => {
     let filtered = productsData;
 
@@ -106,24 +125,23 @@ const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavori
     setProducts(filtered);
   }, [filters]);
 
-  // --- Update filter from URL Query Params ---
   useEffect(() => {
     const petFromQuery = queryParams.get("petType");
     if (petFromQuery && petFromQuery !== filters.petType) {
       setFilters((prev) => ({ ...prev, petType: petFromQuery }));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search]); // Depend only on location.search
+  }, [location.search]);
 
+  // --- UI ---
   return (
     <Container className="my-5">
-      {/* --- Floating Cart Alert --- */}
-      <Alert 
+      {/* Floating Cart Alert */}
+      <Alert
         variant="success"
         show={showCartAlert}
         onClose={() => setShowCartAlert(false)}
         dismissible
-        className="cart-alert" // Ensure this class is styled (e.g., in App.css or Shop.css)
+        className="cart-alert"
       >
         Added <strong>{alertProduct}</strong> to your cart!
       </Alert>
@@ -139,9 +157,11 @@ const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavori
                 filters.petType === pet.name ? "active" : ""
               }`}
               onClick={() => handleFilterChange("petType", pet.name)}
-              role="button" // Add role for accessibility
-              tabIndex={0}  // Add tabIndex for accessibility
-              onKeyPress={(e) => e.key === 'Enter' && handleFilterChange("petType", pet.name)} // Keyboard accessibility
+              role="button"
+              tabIndex={0}
+              onKeyPress={(e) =>
+                e.key === "Enter" && handleFilterChange("petType", pet.name)
+              }
             >
               <img src={pet.image} alt={pet.name} className="pet-icon-image" />
               <p>{pet.name}</p>
@@ -153,48 +173,55 @@ const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavori
       <Row>
         {/* SIDEBAR FILTERS */}
         <Col md={3}>
-          {/* Category Filter */}
           <div className="mb-4 filter-section">
             <h5>Filter by Category</h5>
-            {["All", "Accessories", "Food", "Furniture", "Bags", "Toys", "Treats"].map((cat) => ( // Added more categories
+            {[
+              "All",
+              "Accessories",
+              "Food",
+              "Furniture",
+              "Bags",
+              "Toys",
+              "Treats",
+            ].map((cat) => (
               <Form.Check
                 key={cat}
                 label={cat}
                 name="category"
                 type="radio"
-                id={`cat-${cat}`} // Use more specific ID
-                value={cat} // Add value attribute
+                id={`cat-${cat}`}
+                value={cat}
                 checked={filters.category === cat}
                 onChange={() => handleFilterChange("category", cat)}
               />
             ))}
           </div>
 
-          {/* Brand Filter */}
           <div className="mb-4 filter-section">
             <h5>Filter by Brand</h5>
-            {["All", "PawBrand", "Royal Canin", "WhiskerCo", "Jinx"].map((brand) => ( // Added Jinx
-              <Form.Check
-                key={brand}
-                label={brand}
-                name="brand"
-                type="radio"
-                id={`brand-${brand}`} // Use more specific ID
-                value={brand} // Add value attribute
-                checked={filters.brand === brand}
-                onChange={() => handleFilterChange("brand", brand)}
-              />
-            ))}
+            {["All", "PawBrand", "Royal Canin", "WhiskerCo", "Jinx"].map(
+              (brand) => (
+                <Form.Check
+                  key={brand}
+                  label={brand}
+                  name="brand"
+                  type="radio"
+                  id={`brand-${brand}`}
+                  value={brand}
+                  checked={filters.brand === brand}
+                  onChange={() => handleFilterChange("brand", brand)}
+                />
+              )
+            )}
           </div>
 
-          {/* Price Filter */}
           <div className="mb-4 filter-section">
             <h5>Filter by Price</h5>
             <Form.Label>Min: ${filters.minPrice}</Form.Label>
             <Form.Range
               min={0}
-              max={200} // Increased max price based on sample data
-              step={5} // Add step for better control
+              max={200}
+              step={5}
               value={filters.minPrice}
               onChange={(e) =>
                 handleFilterChange("minPrice", parseInt(e.target.value))
@@ -203,7 +230,7 @@ const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavori
             <Form.Label>Max: ${filters.maxPrice}</Form.Label>
             <Form.Range
               min={0}
-              max={200} // Increased max price
+              max={200}
               step={5}
               value={filters.maxPrice}
               onChange={(e) =>
@@ -211,29 +238,35 @@ const Shop = ({ favorites: globalFavorites, onToggleFavorite: globalToggleFavori
               }
             />
           </div>
+
+          {cartItems.length > 0 && (
+            <Button
+              variant="warning"
+              className="w-100 mt-3"
+              onClick={handleGoToCart}
+            >
+              Go to Cart ({cartItems.length})
+            </Button>
+          )}
         </Col>
 
         {/* PRODUCT GRID */}
         <Col md={9}>
-          <h2 className="mb-4">Products</h2> {/* More generic title */}
+          <h2 className="mb-4">Products</h2>
           <Row>
             {products.length > 0 ? (
               products.map((product) => (
-                // --- INTEGRATION: Replace old card with ProductCard component ---
                 <Col lg={4} md={6} xs={12} className="mb-4" key={product.id}>
-                  <ProductCard 
+                  <ProductCard
                     product={product}
                     onAddToCart={handleAddToCart}
-                    // Check if the product ID exists in the favorites array
-                    isFavorite={favorites.some(fav => fav.id === product.id)} 
-                    // Pass the toggle function down
-                    onToggleFavorite={onToggleFavorite} 
+                    isFavorite={favorites.some((fav) => fav.id === product.id)}
+                    onToggleFavorite={onToggleFavorite}
                   />
                 </Col>
-                // --- END INTEGRATION ---
               ))
             ) : (
-              <Col> {/* Wrap message in Col for proper layout */}
+              <Col>
                 <p>No products match the current filters.</p>
               </Col>
             )}
